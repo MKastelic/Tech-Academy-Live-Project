@@ -1,0 +1,40 @@
+<h2>Hello from register page!</h2><h3>
+
+<h3>
+    <!-- This will bring us back to the home page-->
+    <a href="{% url 'index' %}">Home</a>
+</h3>
+
+<form action="{% url 'register' %}" method="POST">
+
+    <!-- cross-site request forgery protection functionality is available because our function in views.py returns a render method (I think?) -->
+    {% csrf_token %} 
+
+    <!-- each input field name attribute will be referenced in the views function -->
+    <div>
+        <label for="first_name">First name</label>
+        <input type="text" name="first_name" required>
+    </div>
+
+    <div>
+        <label for="last_name">Last name</label>
+        <input type="text" name="last_name" required>
+    </div>
+
+    <div>
+        <label for="email">Email</label>
+        <input type="email" name="email" required>
+    </div>
+
+    <div>
+        <label for="password">Password</label>
+        <input type="password" name="password" required>
+    </div>
+
+    <div>
+        <label for="zipcode">Zip Code</label>
+        <input type="text" pattern="[0-9]{5}" name="zipcode" required>
+    </div>
+
+    <input type="submit" value="Register"></button>
+</form>
