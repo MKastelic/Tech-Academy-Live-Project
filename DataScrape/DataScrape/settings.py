@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'DataApp',
+    'AccountsApp', # these are the names that were generated/defined in the 'x'Config class in each App's apps.py file.
+    'HomeApp'
 ]
 
 MIDDLEWARE = [
@@ -55,7 +57,7 @@ ROOT_URLCONF = 'DataScrape.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'Templates')], # using the join method to create a path with the current directory (BASE_DIR) and then appending the Templates folder to that path.
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
