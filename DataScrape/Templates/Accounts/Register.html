@@ -1,16 +1,22 @@
-<h2>Hello from register page!</h2><h3>
+{% extends 'base.html' %} <!-- here we are saying that we will be rendering our content inside of the base.html template -->
 
-<h3>
-    <!-- This will bring us back to the home page-->
-    <a href="{% url 'index' %}">Home</a>
-</h3>
+{% block title %}| Register{% endblock %} <!-- This will appear in the browser tab -->
 
-<form action="{% url 'register' %}" method="POST">
+{% block content %} <!-- block content defines where the content will be rendered on the page according to where we placed the same tags in the body of base.html-->
+<h2>Hello from register page!</h2>
+
+
+<form action="{% url 'register' %}" method="POST"> <!-- our action method references the register method that will called when we submit this form -->
 
     <!-- cross-site request forgery protection functionality is available because our function in views.py returns a render method (I think?) -->
     {% csrf_token %} 
 
     <!-- each input field name attribute will be referenced in the views function -->
+    <div>
+        <label for="username">Username</label>
+        <input type="text" name="username" required>
+    </div>
+
     <div>
         <label for="first_name">First name</label>
         <input type="text" name="first_name" required>
@@ -38,3 +44,4 @@
 
     <input type="submit" value="Register"></button>
 </form>
+{% endblock %}

@@ -1,6 +1,9 @@
+{% extends 'base.html' %} <!-- here we are saying that we will be rendering our content inside of the base.html template -->
+
+{% block title %}| Home{% endblock %} <!-- This will appear in the browser tab -->
+
+{% block content %} <!-- block content defines where the content will be rendered on the page according to where we placed the same tags in the body of base.html-->
 <h2>This is the home page!</h2>
 
-<h3>
-    <!-- This will bring us directly to the register page-->
-    <a href="{% url 'register' %}">Register</a>
-</h3>
+
+{% endblock %}

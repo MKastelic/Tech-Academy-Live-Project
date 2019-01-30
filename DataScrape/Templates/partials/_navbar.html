@@ -1,0 +1,19 @@
+<nav>
+    <ul>
+        <!-- this code checks to see if the user is logged in, and if so renders the appropriate navigation -->
+        {% if user.is_authenticated %}
+            <h3>
+                <p href="">Welcome {{ user.first_name }}! </p>
+                <a href="{% url 'index' %}">Home</a>
+                <a href="{% url 'logout' %}">Logout</a> <!-- this will redirect the user to whichever route we defined at the bottom of settings.py-->
+            </h3>
+        {% else %}
+            <h3>
+                <!-- These links will bring us directly to the home, register, and login pages -->
+                <a href="{% url 'index' %}">Home</a>
+                <a href="{% url 'register' %}">Register</a>
+                <a href="{% url 'login' %}">Login</a> <!-- this will redirect the user to whichever route we defined at the bottom of settings.py-->
+            </h3>
+        {% endif %}
+    </ul>
+</nav>
