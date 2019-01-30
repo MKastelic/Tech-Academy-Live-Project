@@ -52,8 +52,8 @@ def weather_data(request):
     #  Without a unique class or id we need to look for specific text within <b> tags.
     #  Begin search by looping through each item contained in the only table on the results page.
     for index,item in enumerate(soup.table.contents):
-        #  Try block is used to allow items not containing text to be bypassed when error is thrown
-        #  for "AttributeError: 'NavigableString' object has no attribute 'b'.
+        #  Try block allows passing of exception thrown when items do not contain <b> tags.
+        #  "AttributeError: 'NavigableString' object has no attribute 'b'.
         try:
             if soup.table.contents[index].b.get_text() == 'Humidity':
                 humidity = soup.table.contents[index].get_text()
