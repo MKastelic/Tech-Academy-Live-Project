@@ -14,10 +14,21 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+<<<<<<< HEAD
 from django.urls import path
 from django.conf.urls import include
+=======
+from django.urls import path, include
+>>>>>>> origin
 
 urlpatterns = [
+    path('', include('HomeApp.urls')), # the include method accepts an argument of an iterable (the urlpatterns list in each App's urls.py folder)
     path('admin/', admin.site.urls),
+<<<<<<< HEAD
     path('weather/', include('DataApp.urls'))
+=======
+    # Django allows us to use the same 'accounts/' route name when working with urls; this route name is arbitrary though so we can define it however we want.
+    path('accounts/', include('AccountsApp.urls')),
+    path('users/', include('django.contrib.auth.urls')) # the django.contrib.auth included in settings.py provides us with pre-existing Views and URLs; Django will look for templates in a registration folder we create within the templates folder.
+>>>>>>> origin
 ]

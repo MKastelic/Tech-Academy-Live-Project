@@ -1,0 +1,13 @@
+{% extends 'base.html' %} <!-- here we are saying that we will be rendering our content inside of the base.html template -->
+
+{% block title %}| Login{% endblock %} <!-- This will appear in the browser tab -->
+
+{% block content %} <!-- block content defines where the content will be rendered on the page according to where we placed the same tags in the body of base.html-->
+<h2>Login</h2>
+    <form method="post">
+    {% csrf_token %} <!-- prevent cross-site hackzors -->
+        {{ form.as_p }} <!-- this is the pre-existing login code I referred to in task 3501 -->
+        <button type="submit">Login</button>
+    </form>
+
+{% endblock %}
