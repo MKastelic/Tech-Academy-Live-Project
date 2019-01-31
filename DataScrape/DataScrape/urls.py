@@ -19,6 +19,7 @@ from django.urls import path, include
 urlpatterns = [
     path('', include('HomeApp.urls')), # the include method accepts an argument of an iterable (the urlpatterns list in each App's urls.py folder)
     path('admin/', admin.site.urls),
+    path('weather/', include('DataApp.urls')),
     # Django allows us to use the same 'accounts/' route name when working with urls; this route name is arbitrary though so we can define it however we want.
     path('accounts/', include('AccountsApp.urls')),
     path('users/', include('django.contrib.auth.urls')) # the django.contrib.auth included in settings.py provides us with pre-existing Views and URLs; Django will look for templates in a registration folder we create within the templates folder.
