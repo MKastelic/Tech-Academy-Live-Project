@@ -87,4 +87,3 @@ class MovieScraper:
             if re.search(pattern, movies[index].get_text()):
                 self.movie_list.append(movies[index].get_text())
             
-            
