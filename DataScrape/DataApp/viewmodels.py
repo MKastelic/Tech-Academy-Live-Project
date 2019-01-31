@@ -65,37 +65,26 @@ class WeatherScraper:
             except:
                 pass
 
+
 class MovieScraper:
 
     def __init__ (self):
 
-        #  Use Selenium to navigate to Weather.gov site.  The specific browser driver location
-        #  required for instantiation is provided as a path in the call to Chrome().
-
-        browser = webdriver.Chrome('DataApp/bin/chromedriver.exe')
-        browser.get('https://www.imdb.com/chart/boxoffice?ref_=nv_ch_cht')
-
-        url = browser.current_url
-
-        #  Open the URL above for local forecast and get the HTML to parse with Beautiful Soup 4 (BS4)
-        with urllib.request.urlopen(url) as response:
+        #  Open the URL for the Imdb top box office page and get the HTML to parse with Beautiful Soup 4 (BS4)
+        with urllib.request.urlopen('https://www.imdb.com/chart/boxoffice') as response:
             page = response.read()
         soup = bs(page, 'html.parser')
-
-        #  Close the browser opened for Weather.gov. 
-        #  ToDo:  Can the whole operation of opening the browser be made silent, so the user doesn't see it?
-        browser.quit()
-
-
-
-box_office = soup.find('table', class_='chart full-width')
-links = box_office.find_all('a')
-
-        for item in links:
-	print(item.get_text())
-
-
-
-    movies = soup.table.find_all('a')
-    for item in movies:
-	    print(item.get_text())
+        
+        #  In typical French culinary tradition, perform a soup reduction to narrow the parsed HTML results
+        #  to only the anchor tags within a single table element.
+        movies = soup.table.find_all('a')
+        pattern = re.compile(r'\w+')
+        self.movie_list = []
+        
+        #  Not all anchor tags in the top box office table have text (only those that link to the movie name).
+        #  Loop through the first ten anchors and add only those with movie name text to the movie_list attribute.
+        for index in range(0,10):
+            if re.search(pattern, movies[index].get_text()):
+                self.movie_list.append(movies[index].get_text())
+            
+            

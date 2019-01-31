@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Movies</title>
+    </head>
+    <body>
+        <h2>Top 5 Box-Office Movies</h2>
+            <ol>
+            <!--Cannot parse a variable like "movie.movie_list[1]" inside double curly braces,
+                so use a for loop to iterate through the movie_list attribute of the movie object
+                and create individual ordered list items for the top 5 box office movies  -->
+                {% for item in movie.movie_list %}
+                    <li>{{ item }}</li>
+                {% endfor %}
+            </ol>
+    </body>
+</html>
