@@ -38,6 +38,24 @@
     </div>
 
     <div>
+        <label for="city">City</label>
+        <input type="text" name="city" required>
+    </div>
+
+    <div>
+        <label for="state">State</label>
+        <select name="state" class="form-control">
+        <option selected="true" disabled="disabled">Select a state</option>
+            {% for key, value in state_choices.items %} <!-- Refers to the key : value pairs we defined in choices.py -->
+                <!-- we're able to access these because we passed our context object into the render request for the register page -->
+                <!-- our request.POST method will take the value attribute from the option tag, so we can set it to be whatever the key is for the value displayed to the user (a little confusing) -->
+                <!-- for example, 'Washington' is the selected option displayed to the user, but it will be stored as WA in the database -->
+                <option value="{{ key }}" {% if key == value.state %} selected {% endif %}>{{ value }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    
+    <div>
         <label for="zipcode">Zip Code</label>
         <input type="text" pattern="[0-9]{5}" name="zipcode" required>
     </div>
