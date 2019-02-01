@@ -64,3 +64,26 @@ class WeatherScraper:
                     self.last_update = last_update.group()
             except:
                 pass
+
+
+class MovieScraper:
+
+    def __init__ (self):
+
+        #  Open the URL for the Imdb top box office page and get the HTML to parse with Beautiful Soup 4 (BS4)
+        with urllib.request.urlopen('https://www.imdb.com/chart/boxoffice') as response:
+            page = response.read()
+        soup = bs(page, 'html.parser')
+        
+        #  In typical French culinary tradition, perform a soup reduction to narrow the parsed HTML results
+        #  to only the anchor tags within a single table element.
+        movies = soup.table.find_all('a')
+        pattern = re.compile(r'\w+')
+        self.movie_list = []
+        
+        #  Not all anchor tags in the top box office table have text (only those that link to the movie name).
+        #  Loop through the first ten anchors and add only those with movie name text to the movie_list attribute.
+        for index in range(0,10):
+            if re.search(pattern, movies[index].get_text()):
+                self.movie_list.append(movies[index].get_text())
+            

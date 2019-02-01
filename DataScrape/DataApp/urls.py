@@ -1,7 +1,8 @@
-from django.conf.urls import url
+from django.urls import path
 
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.weather_data, name='weather'),
+    path('weather', views.weather_data, name='weather'),
+    path('movies', views.movie_data, name='movies')
 ]
