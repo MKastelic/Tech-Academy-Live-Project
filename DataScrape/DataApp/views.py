@@ -29,15 +29,20 @@ def movie_data(request):
 
 def events_data(request):
 
+    # retrieve the current logged in user.
     user = request.user
+    # get the user's data from the UserProfile model using the OneToOne user_id field.
     current_profile = get_object_or_404(UserProfile, user_id=user.id)
-    city = current_profile.city
+    # store the user's city and state in variables.
+    city = current_profile.city 
     state = current_profile.state
 
+    # create an instance of the EventScraper class
     event = EventScraper(city, state)
 
     context = {
         'event': event,
     }
 
+    # pass the context object into the render method so that we'll have access to the relevant data.
     return render(request, 'DataApp/events_data.html', context)
