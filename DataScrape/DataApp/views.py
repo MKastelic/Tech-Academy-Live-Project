@@ -1,7 +1,8 @@
 from django.shortcuts import get_object_or_404, render
 
 from .models import UserProfile
-from .viewmodels import WeatherScraper, MovieScraper
+from django.contrib.auth.models import User
+from .viewmodels import WeatherScraper, MovieScraper, EventScraper
 
 
 def weather_data(request):
@@ -24,3 +25,19 @@ def movie_data(request):
     # current top 5 box office movies from Imdb.
     movie = MovieScraper()
     return render(request, 'DataApp/movie_data.html', {'movie': movie})
+
+
+def events_data(request):
+
+    user = request.user
+    current_profile = get_object_or_404(UserProfile, user_id=user.id)
+    city = current_profile.city
+    state = current_profile.state
+
+    event = EventScraper(city, state)
+
+    context = {
+        'event': event,
+    }
+
+    return render(request, 'DataApp/events_data.html', context)
