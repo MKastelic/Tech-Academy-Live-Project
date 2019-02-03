@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title%}| LiveNation {% endblock %}</title>
+</head>
+<body>
+    {% block content %}
+    <h2>Events near {{ event.city }}</h2> <!-- the name of the user's city -->
+
+    <!-- for each tuple (event) in the list returned by our EventScraper in the events_data request (event.final_list) -->
+    {% for event in event.final_list %}
+        <div>
+            <!-- display the day of the week(0), month(2) and date(1) -->
+            <h5>Date: {{ event.0 }} {{ event.2 }} {{ event.1 }}</h5>
+            <!-- the name of the event that is taking place -->
+            <h5>Event: {{ event.3 }} </h5>
+            <!-- and the venue where the event is being held-->
+            <h5>Venue: {{ event.4 }} </h5>
+        </div>
+        <br>
+    {% endfor %}
+    {% endblock %}
+</body>
+</html>

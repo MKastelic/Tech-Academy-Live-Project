@@ -1,6 +1,7 @@
 import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
 from bs4 import BeautifulSoup as bs
 import urllib.request
 import re
@@ -86,4 +87,78 @@ class MovieScraper:
         for index in range(0,10):
             if re.search(pattern, movies[index].get_text()):
                 self.movie_list.append(movies[index].get_text())
+    
+
+class EventScraper:
+
+    def __init__(self, city, state):
+        self.city = city
+        self.state = state
+
+        # Use Selenium to navigate to livenation site using chrome driver at the specified path.
+        browser = webdriver.Chrome('DataApp/bin/chromedriver.exe')
+        browser.get('https://www.livenation.com/')
+
+        # A popup will appear when the page loads which can be closed by clicking outside of the entity.
+        initial_load = ActionChains(browser).move_by_offset(50, 0).double_click()
+        initial_load.perform()
+
+        time.sleep(1)
+
+        # Find the element using copy => xpath from chrome dev tools, and hover over the element to activate the dropdown.
+        city_state = browser.find_element_by_xpath('//*[@id="ember693"]')
+        hover = ActionChains(browser).move_to_element(city_state)
+        hover.perform()
+
+        time.sleep(1)
+        # populate the appropriate input field with the user's information.
+        user_info = self.city + ', ' + self.state
+        send_user_info = browser.find_element_by_xpath('//*[@id="ember712"]')
+        send_user_info.send_keys(user_info)
+
+        time.sleep(1)
+        # wait for the dropdown menu to populate and then press enter
+        send_user_info.send_keys(Keys.RETURN)
+
+        # the page needs time to load the new data for the specified city and state.
+        time.sleep(1)
+
+        # the new page with events generated for the user's city and state will be stored using Selenium's page_source function
+            # we need to use .page_source because urllib's request method only returns html and not JavaScript related code? (I read this somewhere along the way, will have to go back and clarify).
+        # then, the information will be parsed with Beautiful Soup, at which point we can grab all of the divs that hold relevant event data.
+        html = browser.page_source
+        soup = bs(html, 'html.parser')
+        # find_all returns a Beautiful Soup ResultSet (list)
+        target = soup.find_all('div', class_='event-feed-item')
+
+        # we'll create new lists to hold each sub-target(s) data
+        days = []
+        dates = []
+        months = []
+        events = []
+        venues = []
+
+        # each each element returned in the ResultSet
+        for results in target:
+
+            day = results.find('span', class_='day').text # find the corresponding element, convert it to a string...
+            days.append(day) # and store it in the appropriate new list we defined above.
+
+            date = results.find('span', class_='date').text
+            dates.append(date)
+
+            month = results.find('span', class_='month').text
+            months.append(month)
+
+            event = results.h3.text
+            events.append(event)
             
+            venue = results.h4.text
+            venues.append(venue)
+
+        # using zip, we can pass in our lists, and return a list of tuples; zip infers that each index in one list will correspond to the same index in another list (or this is nonsense and I'm totally wrong)
+        final = zip(days, dates, months, events, venues)
+        self.final_list = list(final)
+
+        # exit the browser and load the events_data.html page with the top events in the user's city and state.
+        browser.quit()
