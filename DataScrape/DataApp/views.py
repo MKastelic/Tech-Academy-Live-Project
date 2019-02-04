@@ -1,8 +1,12 @@
 from django.shortcuts import get_object_or_404, render
+from django.http import HttpRequest, HttpResponse
+import urllib.request
+import json
 
 from .models import UserProfile
 from django.contrib.auth.models import User
-from .viewmodels import WeatherScraper, MovieScraper, EventScraper
+from .viewmodels import WeatherScraper, MovieScraper, EventScraper, NasaScraper
+
 
 
 def weather_data(request):
@@ -46,3 +50,9 @@ def events_data(request):
 
     # pass the context object into the render method so that we'll have access to the relevant data.
     return render(request, 'DataApp/events_data.html', context)
+def nasa_data(request):
+    
+    # NasaScraper object has attributes for date, source url, title, and description for
+    # the NASA Astronomy image of the day.
+    nasa = NasaScraper()
+    return render(request, 'DataApp/nasa_data.html', {'nasa': nasa})

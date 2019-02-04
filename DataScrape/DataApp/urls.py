@@ -5,5 +5,9 @@ from . import views
 urlpatterns = [
     path('weather', views.weather_data, name='weather'),
     path('movies', views.movie_data, name='movies'),
+<<<<<<< HEAD
     path('events', views.events_data, name='events')
+=======
+    path('nasa', views.nasa_data, name='nasa')
+>>>>>>> 3a372839e539cbfb3de605482f599a229124482e
 ]
