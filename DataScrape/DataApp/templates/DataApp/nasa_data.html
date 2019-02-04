@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>NASA APOD</title>
+</head>
+<body>
+  <h1>NASA Astronomy Picture of the Day for {{ nasa.date }}</h1>
+  <img id="apod_img_id" src={{ nasa.image_src }} width="900px"/>
+  <h2 id="apod_title"><b>{{ nasa.title }}</b></h2>
+  <h4> {{ nasa.detail }}</h4>
+</body>
+</html>

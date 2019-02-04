@@ -3,6 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from bs4 import BeautifulSoup as bs
 import urllib.request
+import json
 import re
 
 
@@ -86,4 +87,21 @@ class MovieScraper:
         for index in range(0,10):
             if re.search(pattern, movies[index].get_text()):
                 self.movie_list.append(movies[index].get_text())
+
+
+class NasaScraper:
+
+    def __init__ (self):
+
+        #  Open the URL for the NASA API endpoint for their Astronomy Picture of the Day (APOD) and provide required
+        #  API key to allow limited rate access to this resource.
+        url = 'https://api.nasa.gov/planetary/apod?api_key=kK4OwaUtVghqi9A1m40BsWAueYlagAIUQFM6FYlw'
+        serialized_data = urllib.request.urlopen(url).read()
+
+        #  Load JSON response into data object and access known key names in order to set NasaScraper attributes.
+        data = json.loads(serialized_data)
+        self.image_src = data['url']
+        self.title = data['title']
+        self.detail = data['explanation']
+        self.date = data['date']
             

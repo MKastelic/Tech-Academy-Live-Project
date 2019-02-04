@@ -1,7 +1,11 @@
 from django.shortcuts import get_object_or_404, render
+from django.http import HttpRequest, HttpResponse
+import urllib.request
+import json
 
 from .models import UserProfile
-from .viewmodels import WeatherScraper, MovieScraper
+from .viewmodels import WeatherScraper, MovieScraper, NasaScraper
+
 
 
 def weather_data(request):
@@ -24,3 +28,11 @@ def movie_data(request):
     # current top 5 box office movies from Imdb.
     movie = MovieScraper()
     return render(request, 'DataApp/movie_data.html', {'movie': movie})
+
+
+def nasa_data(request):
+    
+    # NasaScraper object has attributes for date, source url, title, and description for
+    # the NASA Astronomy image of the day.
+    nasa = NasaScraper()
+    return render(request, 'DataApp/nasa_data.html', {'nasa': nasa})
