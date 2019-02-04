@@ -10,6 +10,7 @@
 </head>
 <body>
     {% block content %}
+<<<<<<< HEAD
     <h2>Events near {{ event.city }}</h2> <!-- the name of the user's city -->
 
     <!-- for each tuple (event) in the list returned by our EventScraper in the events_data request (event.final_list) -->
@@ -20,6 +21,14 @@
             <!-- the name of the event that is taking place -->
             <h5>Event: {{ event.3 }} </h5>
             <!-- and the venue where the event is being held-->
+=======
+    <h2>Events near {{ event.city }}</h2>
+
+    {% for event in event.final_list %}
+        <div>
+            <h5>Date: {{ event.0 }} {{ event.2 }} {{ event.1 }}</h5>
+            <h5>Event: {{ event.3 }} </h5>
+>>>>>>> 0046fc16109f9638ff7be3b696fcfa75bcbd5373
             <h5>Venue: {{ event.4 }} </h5>
         </div>
         <br>

@@ -4,6 +4,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from bs4 import BeautifulSoup as bs
 import urllib.request
+import json
 import re
 
 
@@ -116,6 +117,7 @@ class EventScraper:
         send_user_info = browser.find_element_by_xpath('//*[@id="ember712"]')
         send_user_info.send_keys(user_info)
 
+        
         time.sleep(1)
         # wait for the dropdown menu to populate and then press enter
         send_user_info.send_keys(Keys.RETURN)
@@ -162,3 +164,22 @@ class EventScraper:
 
         # exit the browser and load the events_data.html page with the top events in the user's city and state.
         browser.quit()
+        browser.quit()
+
+
+class NasaScraper:
+
+    def __init__ (self):
+
+        #  Open the URL for the NASA API endpoint for their Astronomy Picture of the Day (APOD) and provide required
+        #  API key to allow limited rate access to this resource.
+        url = 'https://api.nasa.gov/planetary/apod?api_key=kK4OwaUtVghqi9A1m40BsWAueYlagAIUQFM6FYlw'
+        serialized_data = urllib.request.urlopen(url).read()
+
+        #  Load JSON response into data object and access known key names in order to set NasaScraper attributes.
+        data = json.loads(serialized_data)
+        self.image_src = data['url']
+        self.title = data['title']
+        self.detail = data['explanation']
+        self.date = data['date']
+            
