@@ -121,6 +121,7 @@ class EventScraper:
         # wait for the dropdown menu to populate and then press enter
         send_user_info.send_keys(Keys.RETURN)
 
+        # the page needs time to load the new data for the specified city and state.
         time.sleep(1)
 
         # the new page with events generated for the user's city and state will be stored using Selenium's page_source function
