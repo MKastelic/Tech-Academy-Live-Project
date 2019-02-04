@@ -4,7 +4,8 @@ import urllib.request
 import json
 
 from .models import UserProfile
-from .viewmodels import WeatherScraper, MovieScraper, NasaScraper
+from django.contrib.auth.models import User
+from .viewmodels import WeatherScraper, MovieScraper, EventScraper, NasaScraper
 
 
 
@@ -30,6 +31,25 @@ def movie_data(request):
     return render(request, 'DataApp/movie_data.html', {'movie': movie})
 
 
+def events_data(request):
+
+    # retrieve the current logged in user.
+    user = request.user
+    # get the user's data from the UserProfile model using the OneToOne user_id field.
+    current_profile = get_object_or_404(UserProfile, user_id=user.id)
+    # store the user's city and state in variables.
+    city = current_profile.city 
+    state = current_profile.state
+
+    # create an instance of the EventScraper class
+    event = EventScraper(city, state)
+
+    context = {
+        'event': event,
+    }
+
+    # pass the context object into the render method so that we'll have access to the relevant data.
+    return render(request, 'DataApp/events_data.html', context)
 def nasa_data(request):
     
     # NasaScraper object has attributes for date, source url, title, and description for
