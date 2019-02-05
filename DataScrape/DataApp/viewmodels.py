@@ -181,3 +181,45 @@ class NasaScraper:
         self.detail = data['explanation']
         self.date = data['date']
             
+
+
+class PodcastScraper: 
+
+    def __init__(self):
+
+         #  Open the URL for the Stitcher top shows page with Selenium, and parse with Beautiful Soup
+        link = 'https://www.stitcher.com/stitcher-list/all-podcasts-top-shows'
+        browser = webdriver.Chrome('DataApp/bin/chromedriver.exe')
+        browser.get(link)
+        html = browser.page_source
+        soup = bs(html, 'html.parser')
+
+        # target the top shows table
+        table = soup.find(id='stitcher-list')
+        # target all rows within the table
+        rows = table.find_all('tr')
+        # select the top 5 elements from the resultSet
+        top_podcasts = rows[0:5]
+
+        # create empty lists to store each elements data
+        ranks = []
+        names = []
+        categories = []
+
+        # for each element in the top_podcasts list, find the text content of the target and append it to a new list.
+        for el in top_podcasts:
+
+            rank = el.find('td', class_='sl-rank').text
+            ranks.append(rank)
+
+            name = el.find('span', class_='sl-showName').text
+            names.append(name)
+
+            category = el.find('span', class_='sl-category').text
+            categories.append(category)
+
+         # using zip, we can pass in our lists, and return a list of tuples; zip infers that each index in one list will correspond to the same index in another list.
+        final = zip(ranks, names, categories)
+        self.final_list = list(final)
+
+        browser.quit()
