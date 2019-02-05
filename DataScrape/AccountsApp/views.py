@@ -3,7 +3,7 @@ import random
 
 # import our target model(s) below!
 from django.contrib.auth.models import User
-from DataApp.models import UserProfile
+from DataApp.models import UserProfile, HockeyTeam
 
 # Create your views here.
 def register(request): # each view function takes an HttpRequest object as a parameter.
@@ -26,4 +26,5 @@ def register(request): # each view function takes an HttpRequest object as a par
         return redirect('login') # this currently redirects the user back to the homepage, potentially this can redirect a new user to a dashboard, etc.
 
     else:
+        nhl_team_list =  HockeyTeam.objects.all()
         return render(request, 'accounts/register.html')
