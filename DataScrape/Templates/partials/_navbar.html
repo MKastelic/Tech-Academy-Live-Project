@@ -5,6 +5,8 @@
             <h3>
                 <p href="">Welcome {{ user.first_name }}! </p>
                 <a href="{% url 'index' %}">Home</a>
+                <a href="{% url 'movies' %}">Movies</a>
+                <a href="{% url 'weather' %}">Weather</a>
                 <a href="{% url 'events' %}">Events</a>
                 <a href="{% url 'logout' %}">Logout</a> <!-- this will redirect the user to whichever route we defined at the bottom of settings.py-->
             </h3>

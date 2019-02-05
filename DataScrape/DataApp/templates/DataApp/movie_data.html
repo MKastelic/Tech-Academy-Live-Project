@@ -1,9 +1,12 @@
+{% extends 'base.html' %}
+
 <!doctype html>
 <html>
     <head>
-        <title>Movies</title>
+        <title>{% block title %}| Movies {% endblock %}</title>
     </head>
     <body>
+        {% block content %}
         <h2>Current Top 5 Box-Office Movies</h2>
             <ol>
             <!--Cannot parse a variable like "movie.movie_list[1]" inside double curly braces,
@@ -13,5 +16,6 @@
                     <li>{{ item }}</li>
                 {% endfor %}
             </ol>
+        {% endblock %}
     </body>
 </html>

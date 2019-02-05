@@ -121,6 +121,9 @@ class EventScraper:
         # wait for the dropdown menu to populate and then press enter
         send_user_info.send_keys(Keys.RETURN)
 
+        # the page needs time to load the new data for the specified city and state.
+        time.sleep(1)
+
         # the new page with events generated for the user's city and state will be stored using Selenium's page_source function
             # we need to use .page_source because urllib's request method only returns html and not JavaScript related code? (I read this somewhere along the way, will have to go back and clarify).
         # then, the information will be parsed with Beautiful Soup, at which point we can grab all of the divs that hold relevant event data.
