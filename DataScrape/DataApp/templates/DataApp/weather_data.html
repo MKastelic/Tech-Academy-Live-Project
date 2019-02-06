@@ -17,9 +17,9 @@
             <ul>
             <!-- Iterate through the day_date attribute of the weather object
                     and create individual list items for the 3 day forecast  -->
-                {% for index, item in Enumerate(weather.day_date) %}
-                     <li>{{ item }}  {{ weather.desc_text[index] }}</li>
-                 {% endfor %}
+                     <li>{{ weather.day_date.0 }} :   {{ weather.desc_text.0 }}</li>
+                     <li>{{ weather.day_date.1 }} :   {{ weather.desc_text.1 }}</li>
+                     <li>{{ weather.day_date.2 }} :   {{ weather.desc_text.2 }}</li>
             </ul>
         {% endblock %}
     </body>

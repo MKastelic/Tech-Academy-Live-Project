@@ -79,7 +79,8 @@ class WeatherScraper:
         #  Initialize "three_day" to track and limit the number of forecast days extracted.
         offset = 1
         three_day = 0
-        self.row_text = []
+        self.desc_text = []
+        self.day_date = []
 
         #  Iterate through the forecast days found above and if the text is "Today" or a regular day of the week (DOW),
         #  then add the forecast data to the respective attributes.  Note:  If day text is "Today", reset "offset" to 0
@@ -89,9 +90,10 @@ class WeatherScraper:
             if day.get_text() in DOW and three_day < 3:
                 if day.get_text() == 'Today':
                     offset = 0
+                self.desc_text.append(short_desc[index].get_text())
                 date = datetime.datetime.now() + datetime.timedelta(days=offset + three_day)
                 date = date.strftime('%A %B %d %Y')
-                self.row_text.append(date + ':  ' + short_desc[index].get_text())
+                self.day_date.append(date)
                 three_day += 1
 
 
