@@ -12,6 +12,15 @@
         <h3>Humidity:  {{ weather.humidity }}</h3>
         <br>
         <h4>Last update as of:  {{ weather.last_update }}</h4>
+        <br>
+        <h2>Local Three Day Forecast</h2>
+            <ul>
+            <!-- Iterate through the day_date attribute of the weather object
+                    and create individual list items for the 3 day forecast  -->
+                {% for index, item in Enumerate(weather.day_date) %}
+                     <li>{{ item }}  {{ weather.desc_text[index] }}</li>
+                 {% endfor %}
+            </ul>
         {% endblock %}
     </body>
 </html>
