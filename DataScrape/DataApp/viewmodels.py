@@ -47,25 +47,19 @@ class WeatherScraper:
         self.temp = soup.find(class_='myforecast-current-lrg').get_text()
 
         #  For the humidity and last update info a slightly more sophisticated drill down is required.
-        #  Without a unique class or id we need to look for specific text within <b> tags.
-        #  Begin search by looping through each item contained in the only table on the results page.
-        for index,item in enumerate(soup.table.contents):
-            #  Try block allows passing of exception thrown when items do not contain <b> tags.
-            #  "AttributeError: 'NavigableString' object has no attribute 'b'.
-            try:
-                if soup.table.contents[index].b.get_text() == 'Humidity':
-                    humidity = soup.table.contents[index].get_text()
-                    #  Text returned for item contains the <b> tag string, so regex extracts just the humidity
-                    #  or last_update values.
-                    humidity = re.search(r'\d+%', humidity)
-                    #  re.search returns an object and the "matched" string is retrieved with the group() method.
-                    self.humidity = humidity.group()
-                if soup.table.contents[index].b.get_text() == 'Last update':
-                    last_update = soup.table.contents[index].get_text()
-                    last_update = re.search(r'\b\d+\s\w+\s\d+:\d+\s\w+\s\w+\b', last_update)
-                    self.last_update = last_update.group()
-            except:
-                pass
+        #  For the only table on the results page, find all <td> tags.  These table cells contain either
+        #  label text for the type of weather data, or the data value as text.
+        condensed_soup = soup.table.find_all('td')
+        for index,item in enumerate(condensed_soup):
+            #  Since the weather data value is always in the cell to the right of the data type label, when
+            #  we find the desired data type we're looking for, enumerating the iterable allows us to use
+            #  index + 1 to get the data value.
+            if item.get_text() == 'Humidity':
+                self.humidity = condensed_soup[index + 1].get_text().strip()
+       
+            if item.get_text() == 'Last update':
+                self.last_update = condensed_soup[index + 1].get_text().strip()
+
 
 
 class MovieScraper:
@@ -181,3 +175,45 @@ class NasaScraper:
         self.detail = data['explanation']
         self.date = data['date']
             
+
+
+class PodcastScraper: 
+
+    def __init__(self):
+
+         #  Open the URL for the Stitcher top shows page with Selenium, and parse with Beautiful Soup
+        link = 'https://www.stitcher.com/stitcher-list/all-podcasts-top-shows'
+        browser = webdriver.Chrome('DataApp/bin/chromedriver.exe')
+        browser.get(link)
+        html = browser.page_source
+        soup = bs(html, 'html.parser')
+
+        # target the top shows table
+        table = soup.find(id='stitcher-list')
+        # target all rows within the table
+        rows = table.find_all('tr')
+        # select the top 5 elements from the resultSet
+        top_podcasts = rows[0:5]
+
+        # create empty lists to store each elements data
+        ranks = []
+        names = []
+        categories = []
+
+        # for each element in the top_podcasts list, find the text content of the target and append it to a new list.
+        for el in top_podcasts:
+
+            rank = el.find('td', class_='sl-rank').text
+            ranks.append(rank)
+
+            name = el.find('span', class_='sl-showName').text
+            names.append(name)
+
+            category = el.find('span', class_='sl-category').text
+            categories.append(category)
+
+         # using zip, we can pass in our lists, and return a list of tuples; zip infers that each index in one list will correspond to the same index in another list.
+        final = zip(ranks, names, categories)
+        self.final_list = list(final)
+
+        browser.quit()
