@@ -5,7 +5,7 @@ import json
 
 from .models import UserProfile
 from django.contrib.auth.models import User
-from .viewmodels import WeatherScraper, MovieScraper, EventScraper, NasaScraper
+from .viewmodels import WeatherScraper, MovieScraper, EventScraper, NasaScraper, TechUpcomingScraper
 
 
 
@@ -50,9 +50,16 @@ def events_data(request):
 
     # pass the context object into the render method so that we'll have access to the relevant data.
     return render(request, 'DataApp/events_data.html', context)
+
 def nasa_data(request):
     
     # NasaScraper object has attributes for date, source url, title, and description for
     # the NASA Astronomy image of the day.
     nasa = NasaScraper()
     return render(request, 'DataApp/nasa_data.html', {'nasa': nasa})
+
+
+def tech_events_data(request):
+
+    tech_event = TechUpcomingScraper()
+    return render(request, 'DataApp/tech_upcoming_data.html', {'tech_event': tech_event})
