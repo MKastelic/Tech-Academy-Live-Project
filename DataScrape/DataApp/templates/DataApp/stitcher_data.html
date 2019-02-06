@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+<!doctype html>
+<html>
+    <head>
+        <title>{% block title %}| Stitcher {% endblock %}</title>
+    </head>
+    <body>
+        {% block content %}
+        <h2>Current Top 5 Stitcher Podcasts</h2>
+
+            <table>
+                <thead>
+                    <th>Rank</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                </thead>
+                <tbody>
+                    <!-- for each element in the final_list that was returned by the PodcastScraper class we instantiated in views.py -->
+                    {% for podcast in podcast.final_list %}
+                        <tr>
+                            <td>
+                                {{ podcast.0 }}
+                            </td>
+                            <td>
+                                {{ podcast.1 }}
+                            </td>
+                            <td>
+                                {{ podcast.2 }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <br>
+        {% endblock %}
+    </body>
+</html>

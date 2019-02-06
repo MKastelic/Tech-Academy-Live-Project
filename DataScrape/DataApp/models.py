@@ -6,3 +6,8 @@ class UserProfile(models.Model):
     zip_code = models.IntegerField()
     city = models.CharField(max_length=50, default='Portland')
     state = models.CharField(max_length=50, default='OR')
+    favorite_nhl_team = models.CharField(max_length=50, default='')
+
+class HockeyTeam(models.Model):
+    team_id = models.CharField(max_length=50)
+    team_name = models.CharField(max_length=50, primary_key=True)
