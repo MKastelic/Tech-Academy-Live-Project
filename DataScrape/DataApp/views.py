@@ -5,7 +5,7 @@ import json
 
 from .models import UserProfile
 from django.contrib.auth.models import User
-from .viewmodels import WeatherScraper, MovieScraper, EventScraper, NasaScraper
+from .viewmodels import WeatherScraper, MovieScraper, EventScraper, NasaScraper, PodcastScraper
 
 
 
@@ -60,3 +60,14 @@ def nasa_data(request):
     # the NASA Astronomy image of the day.
     nasa = NasaScraper()
     return render(request, 'DataApp/nasa_data.html', {'nasa': nasa})
+
+
+def stitcher_data(request):
+
+    podcast = PodcastScraper()
+
+    context = {
+        'podcast': podcast,
+    }
+
+    return render(request, 'DataApp/stitcher_data.html', context)
