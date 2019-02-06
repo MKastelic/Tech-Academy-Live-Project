@@ -10,14 +10,17 @@ from .viewmodels import WeatherScraper, MovieScraper, EventScraper, NasaScraper,
 
 
 def weather_data(request):
-    #  Until user login is functional, user zip_code is simply retrieved from the
-    #  first record of the database.
-    user = get_object_or_404(UserProfile, id=1)
-    zipcode = user.zip_code
+
+    # retrieve the current logged in user.
+    user = request.user
+    # get the user's data from the UserProfile model using the OneToOne user_id field.
+    current_profile = get_object_or_404(UserProfile, user_id=user.id)
+    # store the user's zipode in a variable
+    zipcode = current_profile.zip_code
 
     #  WeatherScraper object is initialized with temperature, humidity, and last update
     #  time from the Weather.gov site page result obtained using the passed zipcode
-    #  parameter to search for the local weather forecast.
+    #  as a parameter to search for the local weather forecast.
     weather = WeatherScraper(zipcode)
 
     return render(request, 'DataApp/weather_data.html', {'weather': weather})
@@ -50,7 +53,11 @@ def events_data(request):
 
     # pass the context object into the render method so that we'll have access to the relevant data.
     return render(request, 'DataApp/events_data.html', context)
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> origin
 def nasa_data(request):
     
     # NasaScraper object has attributes for date, source url, title, and description for

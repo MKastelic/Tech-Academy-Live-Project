@@ -10,8 +10,9 @@
 </head>
 <body>
     {% block content %}
-    <h2>Events near {{ event.city }}</h2>
+    <h2>Events near {{ event.city }}</h2> <!-- the name of the user's city -->
 
+    <!-- for each tuple (event) in the list returned by our EventScraper in the events_data request (event.final_list) -->
     {% for event in event.final_list %}
         <div>
             <h5>Date: {{ event.0 }} {{ event.2 }} {{ event.1 }}</h5>

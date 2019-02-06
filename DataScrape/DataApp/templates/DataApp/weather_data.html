@@ -1,13 +1,17 @@
+{% extends 'base.html' %}
+
 <!doctype html>
 <html>
     <head>
-        <title>Weather</title>
+        <title>{% block title %}| Weather {% endblock %}</title>
     </head>
     <body>
+        {% block content %}
         <h2>Local Weather for Zip Code:  {{ weather.zipcode }}</h2>
         <h3>Temperature:  {{ weather.temp }}</h3>
         <h3>Humidity:  {{ weather.humidity }}</h3>
         <br>
         <h4>Last update as of:  {{ weather.last_update }}</h4>
+        {% endblock %}
     </body>
 </html>

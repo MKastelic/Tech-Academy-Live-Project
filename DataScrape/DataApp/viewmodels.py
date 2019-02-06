@@ -48,25 +48,19 @@ class WeatherScraper:
         self.temp = soup.find(class_='myforecast-current-lrg').get_text()
 
         #  For the humidity and last update info a slightly more sophisticated drill down is required.
-        #  Without a unique class or id we need to look for specific text within <b> tags.
-        #  Begin search by looping through each item contained in the only table on the results page.
-        for index,item in enumerate(soup.table.contents):
-            #  Try block allows passing of exception thrown when items do not contain <b> tags.
-            #  "AttributeError: 'NavigableString' object has no attribute 'b'.
-            try:
-                if soup.table.contents[index].b.get_text() == 'Humidity':
-                    humidity = soup.table.contents[index].get_text()
-                    #  Text returned for item contains the <b> tag string, so regex extracts just the humidity
-                    #  or last_update values.
-                    humidity = re.search(r'\d+%', humidity)
-                    #  re.search returns an object and the "matched" string is retrieved with the group() method.
-                    self.humidity = humidity.group()
-                if soup.table.contents[index].b.get_text() == 'Last update':
-                    last_update = soup.table.contents[index].get_text()
-                    last_update = re.search(r'\b\d+\s\w+\s\d+:\d+\s\w+\s\w+\b', last_update)
-                    self.last_update = last_update.group()
-            except:
-                pass
+        #  For the only table on the results page, find all <td> tags.  These table cells contain either
+        #  label text for the type of weather data, or the data value as text.
+        condensed_soup = soup.table.find_all('td')
+        for index,item in enumerate(condensed_soup):
+            #  Since the weather data value is always in the cell to the right of the data type label, when
+            #  we find the desired data type we're looking for, enumerating the iterable allows us to use
+            #  index + 1 to get the data value.
+            if item.get_text() == 'Humidity':
+                self.humidity = condensed_soup[index + 1].get_text().strip()
+       
+            if item.get_text() == 'Last update':
+                self.last_update = condensed_soup[index + 1].get_text().strip()
+
 
 
 class MovieScraper:
@@ -121,6 +115,9 @@ class EventScraper:
         time.sleep(1)
         # wait for the dropdown menu to populate and then press enter
         send_user_info.send_keys(Keys.RETURN)
+
+        # the page needs time to load the new data for the specified city and state.
+        time.sleep(1)
 
         # the new page with events generated for the user's city and state will be stored using Selenium's page_source function
             # we need to use .page_source because urllib's request method only returns html and not JavaScript related code? (I read this somewhere along the way, will have to go back and clarify).
