@@ -59,6 +59,17 @@
         <label for="zipcode">Zip Code</label>
         <input type="text" pattern="[0-9]{5}" name="zipcode" required>
     </div>
+    <!-- Displays a drop down list for user to select a favorite NHL team -->
+    <div>
+        <fieldset>
+            <label for="favorite_nhl_team">Favorite NHL Team</label>
+                <select id = "favorite_nhl_team" name="favorite_nhl_team">
+                    {% for i in team_name_list %}
+                    <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                </select>
+        </fieldset>
+    </div>
 
     <input type="submit" value="Register"></button>
 </form>
