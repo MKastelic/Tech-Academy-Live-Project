@@ -7,11 +7,44 @@
     </head>
     <body>
         {% block content %}
-        <h2>Local Weather for Zip Code:  {{ weather.zipcode }}</h2>
-        <h3>Temperature:  {{ weather.temp }}</h3>
-        <h3>Humidity:  {{ weather.humidity }}</h3>
-        <br>
-        <h4>Last update as of:  {{ weather.last_update }}</h4>
+
+        <!-- Container is centered by default and contains one row holding 8 auto-sized columns. Every other column is currently empty for spacing. Columns will become vertically stacked on small and extra small screens (screens less than 768px in width).  -->
+        <div class="container mt-5 bg-light">
+            <div class="row">
+                <div class="col-sm">
+                    <h3>Zip Code:</h3>
+                    <h3 class="mt-3">{{ weather.zipcode }}</h3>
+                </div>
+                
+                <div class="col-sm">
+                </div>
+                
+                <div class="col-sm">
+                    <h3>Temperature:</h3>
+                    <h3 class="mt-3">{{ weather.temp }}</h3>
+                </div>
+
+                <div class="col-sm">
+                </div>
+
+                <div class="col-sm">
+                    <h3>Humidity:</h3>
+                    <h3 class="mt-3">{{ weather.humidity }}</h3>                    
+                </div>
+
+                <div class="col-sm">
+                </div>
+
+                <div class="col-sm">
+                    <h3>Last Update:</h3>
+                    <h3 class="mt-3">{{ weather.last_update }}</h3>                    
+                </div>
+
+                <div class="col-sm">
+                </div>
+            </div>
+        </div>
+
         {% endblock %}
     </body>
 </html>
