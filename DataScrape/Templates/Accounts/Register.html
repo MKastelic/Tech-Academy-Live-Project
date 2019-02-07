@@ -64,7 +64,18 @@
         <fieldset>
             <label for="favorite_nhl_team">Favorite NHL Team</label>
                 <select id = "favorite_nhl_team" name="favorite_nhl_team">
-                    {% for i in team_name_list %}
+                    {% for i in nhl_team_name_list %}
+                    <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                </select>
+        </fieldset>
+    </div>
+    <!-- Displays a drop down list for user to select a favorite MLB team -->
+    <div>
+        <fieldset>
+            <label for="favorite_mlb_team">Favorite MLB Team</label>
+                <select id = "favorite_mlb_team" name="favorite_mlb_team">
+                    {% for i in mlb_team_name_list %}
                     <option value="{{ i }}">{{ i }}</option>
                     {% endfor %}
                 </select>
