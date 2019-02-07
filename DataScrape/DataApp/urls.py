@@ -8,4 +8,5 @@ urlpatterns = [
     path('events', views.events_data, name='events'),
     path('nasa', views.nasa_data, name='nasa'),
     path('stitcher', views.stitcher_data, name='stitcher'),
+    path('nhl', views.nhl_data, name='nhl')
 ]
