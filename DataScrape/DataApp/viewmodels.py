@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup as bs
 import urllib.request
 import json
 import re
+import requests
 from django.shortcuts import get_object_or_404
 
 from .models import HockeyTeam
@@ -177,6 +178,28 @@ class NasaScraper:
         self.detail = data['explanation']
         self.date = data['date']
             
+class TechUpcomingScraper:
+
+    def __init__(self):
+
+        #  creating a variable of our link
+        self.page_link = 'https://blog.bizzabo.com/technology-events'
+
+        #here we are getting the actual content from this page
+        self.page_response = requests.get(self.page_link, timeout=5)
+
+        # this will parse the content and put it in the content variable
+        self.page_content = bs(self.page_response.content, "html.parser")
+
+        #we create an empty array, then loop through the page to store the
+        #h2 elements which are the event titles
+        self.eventList = [] 
+        for i in range(6,11):
+            pageItems = self.page_content.find_all("tr")[i].text
+            self.eventList.append(pageItems)
+        
+
+        
 
 
 class PodcastScraper: 
