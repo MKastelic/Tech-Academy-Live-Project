@@ -1,0 +1,53 @@
+
+/* Navbar content! as Bootstrap 3 makes it difficult to target certain elements, this will need fiddling with */
+
+#navbar {
+    background-color: cadetblue;
+}
+
+nav .navbar-brand {
+    font-family: 'Amatic SC', cursive;
+    font-size: 3.5rem; 
+    /* color: white !important; */
+    transition: transform 0.5s ease-in;
+}
+
+nav .navbar-brand:hover {
+    transform: scale(1.1);
+}
+
+nav li {
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+/* nav .navbar-nav li a {
+    /* color: white !important;
+ } */
+
+#datascrape-link {
+    color: white;
+}
+
+#please-color-this-damn-thing li a {
+    color: white;
+    /* by specifying transform, our transition will target only the transform property we set on hover, and not other default hover effects included by bootstrap */
+    transition: transform 0.2s ease-in;
+}
+
+#please-color-this-damn-thing li a:hover {
+    transform: scale(1.05);
+}
+
+#dropdown li a {
+    color: black;
+}
+
+#dropdown li a:hover {
+    transform: none
+}
+
+
+/* Alterations to the Bootstrap container */
+.container {
+    margin-top: 60px;
+}

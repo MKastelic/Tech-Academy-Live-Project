@@ -5,7 +5,8 @@ import json
 
 from .models import UserProfile
 from django.contrib.auth.models import User
-from .viewmodels import WeatherScraper, MovieScraper, EventScraper, NasaScraper, TechUpcomingScraper
+from .viewmodels import WeatherScraper, MovieScraper, EventScraper, NasaScraper, TechUpcomingScraper, PodcastScraper
+
 
 
 
@@ -65,3 +66,12 @@ def tech_events_data(request):
 
     tech_event = TechUpcomingScraper()
     return render(request, 'DataApp/tech_upcoming_data.html', {'tech_event': tech_event})
+def stitcher_data(request):
+
+    podcast = PodcastScraper()
+
+    context = {
+        'podcast': podcast,
+    }
+
+    return render(request, 'DataApp/stitcher_data.html', context)

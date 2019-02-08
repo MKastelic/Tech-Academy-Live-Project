@@ -1,23 +1,73 @@
-<nav>
-    <ul>
-        <!-- this code checks to see if the user is logged in, and if so renders the appropriate navigation -->
-        {% if user.is_authenticated %}
-            <h3>
-                <p href="">Welcome {{ user.first_name }}! </p>
-                <a href="{% url 'index' %}">Home</a>
-                <a href="{% url 'movies' %}">Movies</a>
-                <a href="{% url 'weather' %}">Weather</a>
-                <a href="{% url 'events' %}">Events</a>
-                <a href="{% url 'tech_event' %}"> Tech Events</a>
-                <a href="{% url 'logout' %}">Logout</a> <!-- this will redirect the user to whichever route we defined at the bottom of settings.py-->
-            </h3>
-        {% else %}
-            <h3>
-                <!-- These links will bring us directly to the home, register, and login pages -->
-                <a href="{% url 'index' %}">Home</a>
-                <a href="{% url 'register' %}">Register</a>
-                <a href="{% url 'login' %}">Login</a> <!-- this will redirect the user to whichever route we defined at the bottom of settings.py-->
-            </h3>
-        {% endif %}
-    </ul>
-</nav>
+<!-- head to the 'examples' link to see the fixed navbar in action! -->
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid" id="navbar">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#responsive-dropdown" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="{% url 'index' %}" id="datascrape-link">DataScrape</a>
+      </div>
+
+      <!-- if user is currently logged in -->
+      {% if user.is_authenticated %}
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="responsive-dropdown"> <!-- this refers to the data-target attribute of the button inside navbar-header allowing the responsive dropdown to activate when screen becomes smaller. -->
+            <ul class="nav navbar-nav" id="please-color-this-damn-thing">
+            <li><a href="{% url 'movies' %}">Movies</a></li>
+            <li><a href="{% url 'weather' %}">Weather</a></li>
+            <li><a href="{% url 'events' %}">Events</a></li>
+            <li><a href="{% url 'nasa' %}">NASA</a></li>
+            <li><a href="{% url 'stitcher' %}">Stitcher</a></li>
+            <a href="{% url 'tech_event' %}">Tech Events</a>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sports <span class="caret"></span></a>
+                <ul class="dropdown-menu" id="dropdown">
+                <li><a href="#">Hockey</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Baseball</a></li>
+                </ul>
+            </li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right" id="please-color-this-damn-thing">
+            <li><a href="{% url 'index' %}">Welcome {{ user.first_name }}!</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+
+        <!-- if the user does not have an account or is not logged in -->
+      {% else %}
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="responsive-dropdown">
+            <ul class="nav navbar-nav" id="please-color-this-damn-thing">
+            <!-- for now all of these links will take us to the home page, but later on could bring us to a team/about page, example projects, inquiries, etc. -->
+              <li><a href="{% url 'index' %}">About</a></li> 
+              <li><a href="{% url 'examples' %}">Examples</a></li>
+              <li><a href="{% url 'index' %}">Pricing</a></li>
+              <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More <span class="caret"></span></a>
+                    <ul class="dropdown-menu" id="dropdown">
+                    <li><a href="#">Blog</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">Help</a></li>
+                    </ul>
+                </li>
+            </ul>
+    
+            <ul class="nav navbar-nav navbar-right" id="please-color-this-damn-thing">
+              <li><a href="{% url 'login' %}">Login</a></li>
+              <li><a href="{% url 'register' %}">Register</a></li>
+            </ul>
+          </div><!-- /.navbar-collapse -->
+
+      {% endif %}
+    </div><!-- /.container-fluid -->
+  </nav>
+
+ <!-- <span class="sr-only">(current)</span> --> 
+ <!-- class="active" -->

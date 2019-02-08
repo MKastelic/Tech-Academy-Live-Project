@@ -1,0 +1,10 @@
+
+/* Navbar content! */
+nav .navbar-brand {
+    font-family: 'Amatic SC', cursive;
+    font-size: 3.5rem; 
+}
+
+nav li {
+    font-family: 'Josefin Sans', sans-serif;
+}
