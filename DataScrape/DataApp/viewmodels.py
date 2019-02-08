@@ -181,20 +181,20 @@ class TechUpcomingScraper:
     def __init__(self):
 
         #  creating a variable of our link
-        page_link = 'https://blog.bizzabo.com/technology-events'
+        self.page_link = 'https://blog.bizzabo.com/technology-events'
 
         #here we are getting the actual content from this page
-        page_response = requests.get(page_link, timeout=5)
+        self.page_response = requests.get(self.page_link, timeout=5)
 
         # this will parse the content and put it in the content variable
-        page_content = bs(page_response.content, "html.parser")
+        self.page_content = bs(self.page_response.content, "html.parser")
 
         #we create an empty array, then loop through the page to store the
-        #tr elements which I think are the rows of event info
-        textContent = [] 
-        for i in range(0,5):
-            trItems = page_content.find_all("tr")[i].text
-            textContent.append(trItems)
+        #h2 elements which are the event titles
+        self.eventList = [] 
+        for i in range(6,11):
+            pageItems = self.page_content.find_all("tr")[i].text
+            self.eventList.append(pageItems)
         
 
         

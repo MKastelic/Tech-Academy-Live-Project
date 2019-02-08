@@ -53,11 +53,6 @@ def events_data(request):
 
     # pass the context object into the render method so that we'll have access to the relevant data.
     return render(request, 'DataApp/events_data.html', context)
-<<<<<<< HEAD
-
-=======
-    
->>>>>>> origin
 def nasa_data(request):
     
     # NasaScraper object has attributes for date, source url, title, and description for
