@@ -9,4 +9,5 @@ urlpatterns = [
     path('nasa', views.nasa_data, name='nasa'),
     path('tech_event', views.tech_events_data, name='tech_event'),
     path('stitcher', views.stitcher_data, name='stitcher'),
+    path('nhl', views.nhl_data, name='nhl')
 ]

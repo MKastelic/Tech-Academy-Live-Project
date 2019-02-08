@@ -7,7 +7,9 @@ import urllib.request
 import json
 import re
 import requests
+from django.shortcuts import get_object_or_404
 
+from .models import HockeyTeam
 
 class WeatherScraper:
 
@@ -240,3 +242,31 @@ class PodcastScraper:
         self.final_list = list(final)
 
         browser.quit()
+
+
+class NHLScraper:
+    
+    def __init__ (self, team):
+
+        #  set the user's passed favorite team name to an attribute of the instance.
+        self.team = team
+
+        #  from the user's favorite NHL team name, retrieve the team's ID (used by TheSportsDB.com api)
+        #  from the record stored in the HockeyTeam model.
+        nhl_team_data = get_object_or_404(HockeyTeam, team_name=team)
+        nhl_team_id = nhl_team_data.team_id
+
+        #  concatenate the team ID with the appropriate url prefix from TheSportsDB.com api to form
+        #  the query for the user's favorite NHL team and read the data.
+        url = 'https://www.thesportsdb.com/api/v1/json/1/eventsnext.php?id=' + nhl_team_id
+        json_data = json.loads(urllib.request.urlopen(url).read())
+        self.event_list = []
+
+        #  pull strings (strFilename) from the JSON data which contain event descriptions for the team
+        #  and process them to remove the "NHL " text segment at the start of each before appending to 
+        #  the event_list attribute.
+        for index in range(0,5):
+            event_str = json_data['events'][index]['strFilename']
+            strip_NHL = event_str[4:]
+            self.event_list.append(strip_NHL)
+            
