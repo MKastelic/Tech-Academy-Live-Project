@@ -7,7 +7,6 @@ from bs4 import BeautifulSoup as bs
 import urllib.request
 import json
 import re
-import requests
 from django.shortcuts import get_object_or_404
 
 from .models import HockeyTeam
