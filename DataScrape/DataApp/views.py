@@ -7,9 +7,6 @@ from .models import UserProfile
 from django.contrib.auth.models import User
 from .viewmodels import WeatherScraper, MovieScraper, EventScraper, NasaScraper, TechUpcomingScraper, PodcastScraper, NHLScraper
 
-
-
-
 def weather_data(request):
 
     # retrieve the current logged in user.
