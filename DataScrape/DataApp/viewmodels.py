@@ -227,6 +227,7 @@ class NHLScraper:
 
         #  set the user's passed favorite team name to an attribute of the instance.
         self.team = team
+        self.team_logo = 'img/NHL_Team_Logos/' + team + '.gif'
 
         #  from the user's favorite NHL team name, retrieve the team's ID (used by TheSportsDB.com api)
         #  from the record stored in the HockeyTeam model.
