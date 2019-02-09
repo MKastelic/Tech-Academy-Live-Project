@@ -1,4 +1,5 @@
 import time
+import datetime
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
@@ -63,6 +64,34 @@ class WeatherScraper:
             if item.get_text() == 'Last update':
                 self.last_update = condensed_soup[index + 1].get_text().strip()
 
+
+        #  Search entire local weather page for detailed forecast section and find available "days" listed
+        #  uniquely in <b> tags.  In addition, find all accompanying weather description text (short_desc)
+        #  which also contains the predicted high temperature for the day.
+        forecast = soup.find_all("div", {"id":"detailed-forecast-body"})
+        days = forecast[0].find_all('b')
+        short_desc = forecast[0].find_all('div', class_="col-sm-10 forecast-text")
+
+        #  Initialize "offset" to track if date of 3 day forecast should start with today's date (0) or tomorrow's (1).
+        #  Initialize "three_day" to track and limit the number of forecast days extracted.
+        offset = 1
+        three_day = 0
+        self.desc_text = []
+        self.day_date = []
+
+        #  Iterate through the forecast days found above and if the text is "Today" or a regular day of the week (DOW),
+        #  then add the forecast data to the respective attributes.  Note:  If day text is "Today", reset "offset" to 0
+        # so that datetime object will start at today's date as opposed to tomorrow's date (offset=1)
+        DOW = ['Today', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+        for index, day in enumerate(days):
+            if day.get_text() in DOW and three_day < 3:
+                if day.get_text() == 'Today':
+                    offset = 0
+                self.desc_text.append(short_desc[index].get_text())
+                date = datetime.datetime.now() + datetime.timedelta(days=offset + three_day)
+                date = date.strftime('%A %B %d %Y')
+                self.day_date.append(date)
+                three_day += 1
 
 
 class MovieScraper:
