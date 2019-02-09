@@ -5,8 +5,7 @@ import json
 
 from .models import UserProfile
 from django.contrib.auth.models import User
-from .viewmodels import WeatherScraper, MovieScraper, EventScraper, NasaScraper, TechUpcomingScraper, PodcastScraper
-
+from .viewmodels import WeatherScraper, MovieScraper, EventScraper, NasaScraper, TechUpcomingScraper, PodcastScraper, NHLScraper
 
 
 
@@ -75,3 +74,16 @@ def stitcher_data(request):
     }
 
     return render(request, 'DataApp/stitcher_data.html', context)
+
+def nhl_data(request):
+
+    #  retrieve the current logged in user.
+    user = request.user
+    #  get the user's data from the UserProfile model using the OneToOne user_id field.
+    current_profile = get_object_or_404(UserProfile, user_id=user.id)
+    #  store the user's favorite NHL team in a variable 
+    favorite_nhl_team = current_profile.favorite_nhl_team
+    #  create an instance of the NHLScraper class, passing the user's favorite team name.
+    nhl = NHLScraper(favorite_nhl_team)
+    #  pass the context object nhl into the render method to supply needed data.
+    return render(request, 'DataApp/nhl_data.html', {'nhl': nhl})

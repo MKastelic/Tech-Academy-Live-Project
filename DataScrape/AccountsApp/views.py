@@ -9,6 +9,9 @@ from DataApp.models import UserProfile, HockeyTeam
 # Create your views here.
 def register(request): # each view function takes an HttpRequest object as a parameter.
 
+    #  Create a team_name_list by accessing values in the queryset of all objects in the HockeyTeam model.
+    #  Supply the team_name_list as context to the register template in order to display a drop down list for
+    #  the user to select a favorite team.
     nhl_team_list =  HockeyTeam.objects.all()
     nhl_team_names = list(nhl_team_list.values('team_name'))
     team_name_list = []
