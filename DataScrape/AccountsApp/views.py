@@ -9,7 +9,23 @@ from DataApp.models import UserProfile, HockeyTeam, BaseballTeam
 # Create your views here.
 def register(request): # each view function takes an HttpRequest object as a parameter.
 
+<<<<<<< HEAD
     # Note that the context variable was moved to directly above the return statement in the else block
+=======
+    #  Create a team_name_list by accessing values in the queryset of all objects in the HockeyTeam model.
+    #  Supply the team_name_list as context to the register template in order to display a drop down list for
+    #  the user to select a favorite team.
+    nhl_team_list =  HockeyTeam.objects.all()
+    nhl_team_names = list(nhl_team_list.values('team_name'))
+    team_name_list = []
+    for team in nhl_team_names:
+        team_name_list.append(team['team_name'])
+
+    context = { # basically saying 'this' object is equal to 'that' object; 'that' being the state_choices object we imported at the top of the page
+        'state_choices': state_choices,
+        'team_name_list': team_name_list
+    }
+>>>>>>> 305d013a0d8b16a28586500dc7e05130136fd4b9
 
     if request.method == 'POST':
         # create variables to pull the form input values; the request object for each variable will reference the name attribute defined in each input field in register.html
@@ -34,6 +50,7 @@ def register(request): # each view function takes an HttpRequest object as a par
         return redirect('login') # this currently redirects the user back to the homepage, potentially this can redirect a new user to a dashboard, etc.
 
     else:
+<<<<<<< HEAD
         #  Create a team_name_list by accessing values in the queryset of all objects in the 
         #  HockeyTeam model.  Supply the team_name_list as context to the register template in
         #  order to display a drop down list for the user to select a favorite NHL team.
@@ -61,4 +78,6 @@ def register(request): # each view function takes an HttpRequest object as a par
             'mlb_team_name_list': mlb_team_name_list
         }
 
+=======
+>>>>>>> 305d013a0d8b16a28586500dc7e05130136fd4b9
         return render(request, 'accounts/register.html', context)
