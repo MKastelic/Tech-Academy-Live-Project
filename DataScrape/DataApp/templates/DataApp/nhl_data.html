@@ -8,7 +8,8 @@
     <body>
         {% block content %}
         <h2>Next 5 Events for the {{ nhl.team }} NHL team.</h2>  <!-- User's favorite team name is inserted here -->
-            <ol>
+        <img src="{% static img/NHL Team Logos/{{ nhl.team + '.gif' }} %}"   
+        <ol>
             <!-- Loop through the event_list attribute of the nhl object to create an ordered list of
                  the next 5 upcoming events for the user's favorite NHL team. -->
                 {% for item in nhl.event_list %}
