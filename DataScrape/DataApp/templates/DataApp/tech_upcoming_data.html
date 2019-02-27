@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+<!doctype html>
+<html>
+    <head>
+        <title>{% block title %}| Upcoming Tech Events {% endblock %}</title>
+    </head>
+    <body>
+        {% block content %}
+        <h2>Upcoming Tech Events!</h2>
+            <ol>
+                {% for item in tech_event.eventList %}
+                    <li>{{ item }}</li>
+                {% endfor %}
+            </ol>
+        {% endblock %}
+    </body>
+</html>

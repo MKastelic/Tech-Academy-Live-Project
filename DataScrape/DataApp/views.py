@@ -5,9 +5,7 @@ import json
 
 from .models import UserProfile
 from django.contrib.auth.models import User
-from .viewmodels import WeatherScraper, MovieScraper, EventScraper, NasaScraper
-
-
+from .viewmodels import WeatherScraper, MovieScraper, EventScraper, NasaScraper, TechUpcomingScraper, PodcastScraper, NHLScraper
 
 def weather_data(request):
 
@@ -53,10 +51,37 @@ def events_data(request):
 
     # pass the context object into the render method so that we'll have access to the relevant data.
     return render(request, 'DataApp/events_data.html', context)
-    
 def nasa_data(request):
     
     # NasaScraper object has attributes for date, source url, title, and description for
     # the NASA Astronomy image of the day.
     nasa = NasaScraper()
     return render(request, 'DataApp/nasa_data.html', {'nasa': nasa})
+
+
+def tech_events_data(request):
+
+    tech_event = TechUpcomingScraper()
+    return render(request, 'DataApp/tech_upcoming_data.html', {'tech_event': tech_event})
+def stitcher_data(request):
+
+    podcast = PodcastScraper()
+
+    context = {
+        'podcast': podcast,
+    }
+
+    return render(request, 'DataApp/stitcher_data.html', context)
+
+def nhl_data(request):
+
+    #  retrieve the current logged in user.
+    user = request.user
+    #  get the user's data from the UserProfile model using the OneToOne user_id field.
+    current_profile = get_object_or_404(UserProfile, user_id=user.id)
+    #  store the user's favorite NHL team in a variable 
+    favorite_nhl_team = current_profile.favorite_nhl_team
+    #  create an instance of the NHLScraper class, passing the user's favorite team name.
+    nhl = NHLScraper(favorite_nhl_team)
+    #  pass the context object nhl into the render method to supply needed data.
+    return render(request, 'DataApp/nhl_data.html', {'nhl': nhl})

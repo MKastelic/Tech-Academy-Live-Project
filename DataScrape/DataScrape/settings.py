@@ -39,8 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'DataApp',
     'AccountsApp', # these are the names that were generated/defined in the 'x'Config class in each App's apps.py file.
-    'HomeApp',
-    'MessageApp'
+    'HomeApp'
 ]
 
 MIDDLEWARE = [
@@ -122,6 +121,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+# this is where Django will look for static files that don't belong to a specific app.
+# we can add all of our static files to this folder during development.
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'DataScrape/static')
+]
+# using the collectstatic command, Django will look for all static files and collect them here.
+# this will come in handy when we try to serve files in production!
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# django.contrib.staticfiles app automatically generates the admin static folders/files?! (That's rad!)
 
 
 # Login and logout redirects; we can define a the paths with the name of whatever route we want the user to be redirected to.
