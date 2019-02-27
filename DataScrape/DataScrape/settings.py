@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'DataApp',
+    'MessageApp',
     'AccountsApp', # these are the names that were generated/defined in the 'x'Config class in each App's apps.py file.
     'HomeApp'
 ]
