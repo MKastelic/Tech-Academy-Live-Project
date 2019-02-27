@@ -11,7 +11,7 @@ Specific contributions during my 2 weeks working on the development team include
 
 1. [Retrieve/display current local weather](docs/Local_Weather.pdf) info (temperature, humidity and date:time of update) within the zipcode of the user.
 2. [Retrieve/display the three-day forecast](docs/Three_Day_Forecast.pdf) of local weather within the zipcode of the user.
-3.[Create a model for messages](docs/Message_Model.pdf) within a new application of the DataScrape project to store sender/receiver names, date, and message body text.
+3. [Create a model for messages](docs/Message_Model.pdf) within a new application of the DataScrape project to store sender/receiver names, date, and message body text.
 4. [Retrieve/display the NASA image](docs/NASA_Image.pdf) of the day (APOD), along with its title, and descriptive text.
 5. [Retrieve/display the current top 5 box office movie titles](docs/Movies.pdf).
 6. [Automatically populate the HockeyTeam model](docs/NHL_Teams_Script.pdf) in the DataApp of the DataScrape project with all of the current NHL team names.
