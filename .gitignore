@@ -114,3 +114,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Visual Studio
+.vs
+
+# secret settings
+secret_key.txt
