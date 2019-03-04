@@ -17,4 +17,4 @@ Specific contributions during my 2 weeks working on the development team include
 6. [Automatically populate the HockeyTeam model](docs/NHL_Teams_Script.pdf) in the DataApp of the DataScrape project with all of the current NHL team names.
 7. [Get/save the favorite NHL team](docs/NHL_Team.pdf) to the user's personal profile management page.
 8. [Retrieve/display the next five events](docs/Events.pdf) for the user's favorite NHL team.
-9. [Retrieve/display the logo of the user's favorite NHL team](Logo.pdf) on the user's sports page.
+9. [Retrieve/display the logo of the user's favorite NHL team](docs/Logo.pdf) on the user's sports page.
